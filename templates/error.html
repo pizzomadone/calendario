@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="error-page">
+        <h1>😕 Ops!</h1>
+        <p class="error-message">{{message}}</p>
+        <div class="error-actions">
+            <a href="/" class="button-primary">Torna alla Home</a>
+            <a href="/oggi" class="button-secondary">Vai a Oggi</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

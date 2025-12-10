@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <article class="saint-detail">
+        <header class="saint-header">
+            <h1>{{saint['name']}}</h1>
+            <div class="saint-meta">
+                <span class="badge">{{saint['day']}} {{italian_month}}</span>
+                {% if saint['feast_day'] %}
+                <span class="badge">{{saint['feast_day']}}</span>
+                {% endif %}
+            </div>
+        </header>
+
+        <section class="card saint-content">
+            <h2>📖 Storia</h2>
+            <div class="saint-biography">
+                {{saint['biography']}}
+            </div>
+        </section>
+
+        {% if saint['patronage'] %}
+        <section class="card patronage-section">
+            <h2>🛡️ Patronato</h2>
+            <p class="patronage-text">{{saint['name']}} è patrono di: <strong>{{saint['patronage']}}</strong></p>
+        </section>
+        {% endif %}
+
+        <section class="saint-actions">
+            <a href="/giorno/{{datetime.now().year}}/{{saint['month']:02}}/{{saint['day']:02}}" class="button-primary">
+                📅 Vai al {{saint['day']}} {{italian_month}}
+            </a>
+            <a href="/santi" class="button-secondary">
+                🙏 Vedi tutti i santi
+            </a>
+        </section>
+    </article>
+</div>
+{% endblock %}

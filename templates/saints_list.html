@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>🙏 Tutti i Santi</h1>
+        <p class="page-description">Elenco completo dei santi del calendario italiano</p>
+    </header>
+
+    {% for month, saints in saints_by_month.items() %}
+    <section class="saints-month-section">
+        <h2 class="month-title">{{italian_months[month].capitalize()}}</h2>
+        <div class="saints-grid">
+            {% for saint in saints %}
+            <a href="/santo/{{saint['slug']}}" class="saint-card">
+                <div class="saint-date">{{saint['day']}} {{italian_months[month]}}</div>
+                <div class="saint-name">{{saint['name']}}</div>
+                <div class="saint-preview">{{saint['short_story'][:100]}}...</div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="back-link">
+        <a href="/" class="button-secondary">← Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

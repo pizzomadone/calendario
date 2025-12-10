@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="day-header">
+        <div class="navigation">
+            <a href="/giorno/{{prev_day.year}}/{{prev_day.month:02}}/{{prev_day.day:02}}" class="nav-button">← Giorno Precedente</a>
+            <h1 class="day-title">{{formatted_date}}</h1>
+            <a href="/giorno/{{next_day.year}}/{{next_day.month:02}}/{{next_day.day:02}}" class="nav-button">Giorno Successivo →</a>
+        </div>
+
+        <div class="quick-info">
+            <span class="badge">{{season['emoji']}} {{season['season_italian']}}</span>
+            <span class="badge">{{zodiac['symbol']}} {{zodiac['name']}}</span>
+            <span class="badge">Settimana {{day_info['week_number']}}</span>
+            <span class="badge">Giorno {{day_info['day_of_year']}}/{{day_info['days_in_year']}}</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- Saints Section -->
+        {% if saints %}
+        <section class="card saints-card">
+            <h2>🙏 Santo del Giorno</h2>
+            {% for saint in saints %}
+            <div class="saint-item">
+                <h3><a href="/santo/{{saint['slug']}}">{{saint['name']}}</a></h3>
+                <p class="saint-story">{{saint['short_story']}}</p>
+                {% if saint['patronage'] %}
+                <p class="patronage"><strong>Patrono di:</strong> {{saint['patronage']}}</p>
+                {% endif %}
+                <a href="/santo/{{saint['slug']}}" class="read-more">Leggi la storia completa →</a>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <!-- Holidays Section -->
+        {% if holidays %}
+        <section class="card holidays-card">
+            <h2>🎉 Festività</h2>
+            {% for holiday in holidays %}
+            <div class="holiday-item">
+                <h3>{{holiday['name']}}</h3>
+                {% if holiday['is_national'] %}
+                <span class="badge badge-holiday">🇮🇹 Festa Nazionale</span>
+                {% endif %}
+                {% if holiday['is_religious'] %}
+                <span class="badge badge-religious">⛪ Festa Religiosa</span>
+                {% endif %}
+                <p>{{holiday['description']}}</p>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <!-- Moon Phase Section -->
+        <section class="card moon-card">
+            <h2>🌙 Fase Lunare</h2>
+            <div class="moon-phase">
+                <div class="moon-icon">{{moon['phase_italian']}}</div>
+                <div class="moon-details">
+                    <p><strong>Illuminazione:</strong> {{moon['illumination']}}%</p>
+                    <p><strong>Età lunare:</strong> {{moon['age']}} giorni</p>
+                </div>
+            </div>
+            <div class="moon-upcoming">
+                <h4>Prossime fasi:</h4>
+                <ul>
+                    <li>🌑 Luna Nuova: {{moon['next_new'].strftime('%d/%m/%Y')}}</li>
+                    <li>🌕 Luna Piena: {{moon['next_full'].strftime('%d/%m/%Y')}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sun Info Section -->
+        {% if sun.get('sunrise') %}
+        <section class="card sun-card">
+            <h2>☀️ Informazioni Solari</h2>
+            <div class="sun-info">
+                <div class="sun-time">
+                    <span class="sun-label">🌅 Alba</span>
+                    <span class="sun-value">{{sun['sunrise_str']}}</span>
+                </div>
+                <div class="sun-time">
+                    <span class="sun-label">🌇 Tramonto</span>
+                    <span class="sun-value">{{sun['sunset_str']}}</span>
+                </div>
+                <div class="sun-time">
+                    <span class="sun-label">⏱️ Durata del giorno</span>
+                    <span class="sun-value">{{sun['day_length_str']}}</span>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Name Days Section -->
+        {% if name_days %}
+        <section class="card namedays-card">
+            <h2>👤 Onomastici</h2>
+            <div class="namedays-list">
+                {% for name in name_days %}
+                <span class="name-badge">{{name['name']}}</span>
+                {% endfor %}
+            </div>
+            <p class="namedays-note">Se oggi è il tuo onomastico, auguri! 🎉</p>
+        </section>
+        {% endif %}
+
+        <!-- Historical Events Section -->
+        {% if events %}
+        <section class="card events-card">
+            <h2>📖 Accadde Oggi</h2>
+            {% for event in events %}
+            <div class="event-item">
+                <span class="event-year">{{event['year']}}</span>
+                <h4>{{event['title']}}</h4>
+                <p>{{event['description']}}</p>
+                {% if event['category'] %}
+                <span class="badge badge-category">{{event['category']}}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </div>
+
+    <!-- Month Calendar Link -->
+    <div class="month-link">
+        <a href="/mese/{{year}}/{{month:02}}/{{italian_month}}" class="button-primary">
+            📅 Vedi tutto il mese di {{italian_month}}
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>🎉 Festività Italiane</h1>
+        <p class="page-description">Elenco completo delle festività comandate e feste nazionali</p>
+    </header>
+
+    <section class="holidays-list-section">
+        {% for holiday in holidays %}
+        <div class="holiday-detail-card">
+            <div class="holiday-header">
+                <h2>{{holiday['name']}}</h2>
+                <div class="holiday-date">{{holiday['day']}} {{italian_months[holiday['month']].capitalize()}}</div>
+            </div>
+            <div class="holiday-badges">
+                {% if holiday['is_national'] %}
+                <span class="badge badge-holiday">🇮🇹 Festa Nazionale</span>
+                {% endif %}
+                {% if holiday['is_religious'] %}
+                <span class="badge badge-religious">⛪ Festa Religiosa</span>
+                {% endif %}
+            </div>
+            <p class="holiday-description">{{holiday['description']}}</p>
+            <a href="/giorno/{{datetime.now().year}}/{{holiday['month']:02}}/{{holiday['day']:02}}" class="holiday-link">
+                Vai al {{holiday['day']}} {{italian_months[holiday['month']]}} →
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+
+    <div class="back-link">
+        <a href="/" class="button-secondary">← Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

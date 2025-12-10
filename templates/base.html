@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+
+    {{!meta_tags}}
+    {{!breadcrumb if breadcrumb else ''}}
+    {{!person_schema if person_schema else ''}}
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">📅 Calendario Italiano</a>
+                <ul class="nav-links">
+                    <li><a href="/oggi">Oggi</a></li>
+                    <li><a href="/santi">Santi</a></li>
+                    <li><a href="/feste">Festività</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Calendario Italiano</h3>
+                    <p>Il calendario completo italiano con santi, feste, fasi lunari e molto altro.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link Utili</h3>
+                    <ul>
+                        <li><a href="/oggi">Oggi</a></li>
+                        <li><a href="/santi">Tutti i Santi</a></li>
+                        <li><a href="/feste">Festività</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Info</h3>
+                    <p>Anno corrente: {{datetime.now().year}}</p>
+                    <p>&copy; 2024 Calendario Italiano</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

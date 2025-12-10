@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="month-header">
+        <div class="navigation">
+            <a href="/mese/{{prev_month[0]}}/{{prev_month[1]:02}}" class="nav-button">← Mese Precedente</a>
+            <h1 class="month-title">{{italian_month.capitalize()}} {{year}}</h1>
+            <a href="/mese/{{next_month[0]}}/{{next_month[1]:02}}" class="nav-button">Mese Successivo →</a>
+        </div>
+    </div>
+
+    <!-- Moon Phases Summary -->
+    {% if moon_phases %}
+    <section class="card moon-summary">
+        <h2>🌙 Fasi Lunari di {{italian_month.capitalize()}}</h2>
+        <div class="moon-phases-list">
+            {% for phase in moon_phases %}
+            <div class="moon-phase-item">
+                <span class="moon-emoji">{{phase['name']}}</span>
+                <span class="moon-date">{{phase['date'].strftime('%d %B').replace(phase['date'].strftime('%B'), italian_month)}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Calendar Grid -->
+    <section class="calendar-section">
+        <div class="calendar-grid">
+            <div class="calendar-header">
+                <div class="calendar-day-name">Lun</div>
+                <div class="calendar-day-name">Mar</div>
+                <div class="calendar-day-name">Mer</div>
+                <div class="calendar-day-name">Gio</div>
+                <div class="calendar-day-name">Ven</div>
+                <div class="calendar-day-name">Sab</div>
+                <div class="calendar-day-name">Dom</div>
+            </div>
+
+            {% for week in month_days %}
+            <div class="calendar-week">
+                {% for day in week %}
+                {% if day == 0 %}
+                <div class="calendar-day empty"></div>
+                {% else %}
+                <div class="calendar-day">
+                    <a href="/giorno/{{year}}/{{month:02}}/{{day:02}}" class="day-link">
+                        <div class="day-number">{{day}}</div>
+
+                        {% if day in holidays_in_month %}
+                        <div class="day-marker holiday-marker" title="Festività">🎉</div>
+                        {% endif %}
+
+                        {% if day in moon_by_day %}
+                        <div class="day-marker moon-marker">
+                            {% for phase in moon_by_day[day] %}
+                            <span title="{{phase['name']}}">{{phase['name'].split()[0]}}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {% if day in saints_in_month %}
+                        <div class="day-info">
+                            {% for saint in saints_in_month[day][:1] %}
+                            <span class="saint-name" title="{{saint['name']}}">{{saint['name'].split()[0]}}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Legend -->
+    <section class="calendar-legend">
+        <h3>Legenda</h3>
+        <div class="legend-items">
+            <span class="legend-item"><span class="legend-marker">🎉</span> Festività</span>
+            <span class="legend-item"><span class="legend-marker">🌙</span> Fase Lunare</span>
+            <span class="legend-item"><span class="legend-marker">🙏</span> Santo del giorno</span>
+        </div>
+    </section>
+
+    <!-- Year Link -->
+    <div class="year-link">
+        <a href="/anno/{{year}}" class="button-primary">
+            📅 Vedi tutto l'anno {{year}}
+        </a>
+    </div>
+</div>
+{% endblock %}

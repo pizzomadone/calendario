@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="year-header">
+        <div class="navigation">
+            <a href="/anno/{{year - 1}}" class="nav-button">← Anno Precedente</a>
+            <h1 class="year-title">Anno {{year}}</h1>
+            <a href="/anno/{{year + 1}}" class="nav-button">Anno Successivo →</a>
+        </div>
+
+        <div class="year-info">
+            {% if season_info %}
+            <p>Stagione corrente: {{season_info['emoji']}} {{season_info['season_italian']}}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Holidays Summary -->
+    {% if holidays %}
+    <section class="card holidays-summary">
+        <h2>🎉 Festività {{year}}</h2>
+        <div class="holidays-grid">
+            {% for holiday in holidays %}
+            <div class="holiday-box">
+                <div class="holiday-date">{{holiday['day']}} {{italian_months[holiday['month']].capitalize()}}</div>
+                <div class="holiday-name">{{holiday['name']}}</div>
+                {% if holiday['is_national'] %}
+                <span class="badge badge-small">🇮🇹 Nazionale</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Months Grid -->
+    <section class="months-section">
+        <h2>📅 Tutti i Mesi</h2>
+        <div class="months-grid">
+            {% for month in months %}
+            <a href="/mese/{{year}}/{{month:02}}/{{italian_months[month]}}" class="month-box">
+                <div class="month-name">{{italian_months[month].capitalize()}}</div>
+                <div class="month-number">{{month}}</div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Season Dates -->
+    {% if season_info %}
+    <section class="card seasons-info">
+        <h2>🌍 Stagioni {{year}}</h2>
+        <div class="seasons-grid">
+            <div class="season-box">
+                <div class="season-emoji">🌸</div>
+                <div class="season-name">Primavera</div>
+                <div class="season-date">{{season_info['spring_equinox'].strftime('%d/%m/%Y %H:%M')}}</div>
+            </div>
+            <div class="season-box">
+                <div class="season-emoji">☀️</div>
+                <div class="season-name">Estate</div>
+                <div class="season-date">{{season_info['summer_solstice'].strftime('%d/%m/%Y %H:%M')}}</div>
+            </div>
+            <div class="season-box">
+                <div class="season-emoji">🍂</div>
+                <div class="season-name">Autunno</div>
+                <div class="season-date">{{season_info['autumn_equinox'].strftime('%d/%m/%Y %H:%M')}}</div>
+            </div>
+            <div class="season-box">
+                <div class="season-emoji">❄️</div>
+                <div class="season-name">Inverno</div>
+                <div class="season-date">{{season_info['winter_solstice'].strftime('%d/%m/%Y %H:%M')}}</div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Quick Links -->
+    <section class="quick-links">
+        <h2>🔗 Link Rapidi</h2>
+        <div class="links-grid">
+            <a href="/santi" class="link-box">
+                <span class="link-icon">🙏</span>
+                <span class="link-text">Tutti i Santi</span>
+            </a>
+            <a href="/feste" class="link-box">
+                <span class="link-icon">🎉</span>
+                <span class="link-text">Tutte le Festività</span>
+            </a>
+            <a href="/oggi" class="link-box">
+                <span class="link-icon">📅</span>
+                <span class="link-text">Vai a Oggi</span>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
