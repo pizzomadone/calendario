@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>🌱 Calendario dell'Orto e Agricoltura</h1>
+        <p class="page-description">Consigli mensili per coltivazione, semina e raccolta</p>
+    </header>
+
+    <div class="month-filters">
+        <a href="/orto" class="filter-button {{'active' if not month_filter else ''}}">Tutti i mesi</a>
+        {% for i in range(1, 13) %}
+        <a href="/orto?mese={{i}}" class="filter-button {{'active' if month_filter == str(i) else ''}}">{{italian_months[i]}}</a>
+        {% endfor %}
+    </div>
+
+    {% for month, tips in tips_by_month.items() %}
+    <section class="card agricultural-month-section">
+        <h2>{{italian_months[month]}}</h2>
+        <div class="tips-grid">
+            {% for tip in tips %}
+            <div class="tip-card">
+                <h3>{{tip['title']}}</h3>
+                <p>{{tip['description']}}</p>
+                <div class="tip-meta">
+                    {% if tip['category'] %}<span class="badge">{{tip['category']}}</span>{% endif %}
+                    {% if tip['moon_phase'] %}<span class="badge">🌙 {{tip['moon_phase']}}</span>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="back-link">
+        <a href="/" class="button-secondary">← Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

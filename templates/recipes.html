@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>🍝 Ricette Stagionali Italiane</h1>
+        <p class="page-description">Piatti tradizionali divisi per stagione</p>
+    </header>
+
+    <div class="season-filters">
+        <a href="/ricette" class="filter-button {{'active' if not season_filter else ''}}">Tutte</a>
+        <a href="/ricette?stagione=Primavera" class="filter-button {{'active' if season_filter == 'Primavera' else ''}}">🌸 Primavera</a>
+        <a href="/ricette?stagione=Estate" class="filter-button {{'active' if season_filter == 'Estate' else ''}}">☀️ Estate</a>
+        <a href="/ricette?stagione=Autunno" class="filter-button {{'active' if season_filter == 'Autunno' else ''}}">🍂 Autunno</a>
+        <a href="/ricette?stagione=Inverno" class="filter-button {{'active' if season_filter == 'Inverno' else ''}}">❄️ Inverno</a>
+    </div>
+
+    {% for season, recipes in recipes_by_season.items() %}
+    <section class="recipes-season-section">
+        <h2>{% if season == 'Primavera' %}🌸{% elif season == 'Estate' %}☀️{% elif season == 'Autunno' %}🍂{% else %}❄️{% endif %} {{season}}</h2>
+        <div class="recipes-grid">
+            {% for recipe in recipes %}
+            <a href="/ricetta/{{recipe['id']}}" class="recipe-card">
+                <h3>{{recipe['title']}}</h3>
+                <p class="recipe-description">{{recipe['description']}}</p>
+                <div class="recipe-meta">
+                    {% if recipe['region'] %}<span class="badge">{{recipe['region']}}</span>{% endif %}
+                    <span class="badge">{{recipe['difficulty']}}</span>
+                    <span class="badge">⏱️ {{recipe['prep_time']}} min</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="back-link">
+        <a href="/" class="button-secondary">← Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>💭 Proverbi e Citazioni Italiane</h1>
+        <p class="page-description">Saggezza popolare, detti e proverbi della tradizione italiana</p>
+    </header>
+
+    {% for category, proverbs in proverbs_by_category.items() %}
+    <section class="card proverbs-section">
+        <h2>{{category}}</h2>
+        <div class="proverbs-list">
+            {% for proverb in proverbs %}
+            <div class="proverb-item">
+                <p class="proverb-text"><i>"{{proverb['text']}}"</i></p>
+                {% if proverb['author'] %}
+                <p class="proverb-author">— {{proverb['author']}}</p>
+                {% endif %}
+                {% if proverb['day'] and proverb['month'] %}
+                <p class="proverb-date">{{proverb['day']}}/{{proverb['month']}}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="back-link">
+        <a href="/" class="button-secondary">← Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

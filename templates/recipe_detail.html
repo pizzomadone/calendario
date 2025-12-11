@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <article class="recipe-detail">
+        <header class="recipe-header">
+            <h1>{{recipe['title']}}</h1>
+            <div class="recipe-meta">
+                <span class="badge">{{recipe['season']}}</span>
+                {% if recipe['region'] %}<span class="badge">{{recipe['region']}}</span>{% endif %}
+                <span class="badge">{{recipe['difficulty']}}</span>
+                <span class="badge">⏱️ {{recipe['prep_time']}} minuti</span>
+            </div>
+        </header>
+
+        <section class="card recipe-content">
+            <h2>📝 Descrizione</h2>
+            <p>{{recipe['description']}}</p>
+        </section>
+
+        <section class="card">
+            <h2>🛒 Ingredienti</h2>
+            <ul class="ingredients-list">
+                {% for ingredient in recipe['ingredients'].split(',') %}
+                <li>{{ingredient.strip()}}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>👨‍🍳 Preparazione</h2>
+            <div class="instructions">
+                {% for step in recipe['instructions'].split('.') %}
+                {% if step.strip() %}
+                <p>{{step.strip()}}.</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="recipe-actions">
+            <a href="/ricette" class="button-secondary">← Tutte le ricette</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

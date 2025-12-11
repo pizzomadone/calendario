@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header class="page-header">
+        <h1>🎉 Festività Regionali Italiane</h1>
+        <p class="page-description">Feste patronali e celebrazioni regionali</p>
+    </header>
+
+    <div class="region-filters">
+        <a href="/feste/regionali" class="filter-button {{'active' if not region_filter else ''}}">Tutte le regioni</a>
+        {% for region in regions %}
+        <a href="/feste/regionali?regione={{region}}" class="filter-button {{'active' if region_filter == region else ''}}">{{region}}</a>
+        {% endfor %}
+    </div>
+
+    {% for region, holidays in holidays_by_region.items() %}
+    <section class="card regional-section">
+        <h2>{{region}}</h2>
+        <div class="holidays-list">
+            {% for holiday in holidays %}
+            <div class="holiday-regional-card">
+                <div class="holiday-date">{{holiday['day']}} {{italian_months[holiday['month']].capitalize()}}</div>
+                <h3>{{holiday['name']}}</h3>
+                <p>{{holiday['description']}}</p>
+                {% if holiday['is_religious'] %}<span class="badge badge-religious">⛪ Religiosa</span>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="back-link">
+        <a href="/feste" class="button-secondary">← Festività Nazionali</a>
+        <a href="/" class="button-secondary">Torna alla home</a>
+    </div>
+</div>
+{% endblock %}

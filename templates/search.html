@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="search-header">
+        <h1>🔍 Ricerca nel Calendario</h1>
+
+        <form action="/cerca" method="get" class="search-form">
+            <input type="text" name="q" value="{{query}}" placeholder="Cerca santi, festività, ricette..." class="search-input" autofocus>
+            <button type="submit" class="button-primary">Cerca</button>
+        </form>
+    </div>
+
+    {% if query %}
+    <div class="search-results">
+        <h2>Risultati per: "{{query}}"</h2>
+        <p class="results-count">Trovati {{results.get('total', 0)}} risultati</p>
+
+        {% if results.get('saints') %}
+        <section class="card results-section">
+            <h3>🙏 Santi ({{results['saints']|length}})</h3>
+            <div class="results-list">
+                {% for saint in results['saints'] %}
+                <div class="result-item">
+                    <h4><a href="/santo/{{saint['slug']}}">{{saint['name']}}</a></h4>
+                    <p>{{saint['day']}}/{{saint['month']}} - {{saint['short_story'][:100]}}...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if results.get('holidays') %}
+        <section class="card results-section">
+            <h3>🎉 Festività ({{results['holidays']|length}})</h3>
+            <div class="results-list">
+                {% for holiday in results['holidays'] %}
+                <div class="result-item">
+                    <h4>{{holiday['name']}}</h4>
+                    <p>{{holiday['day']}}/{{holiday['month']}} - {{holiday['description'][:100]}}...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if results.get('recipes') %}
+        <section class="card results-section">
+            <h3>🍝 Ricette ({{results['recipes']|length}})</h3>
+            <div class="results-list">
+                {% for recipe in results['recipes'] %}
+                <div class="result-item">
+                    <h4><a href="/ricetta/{{recipe['id']}}">{{recipe['title']}}</a></h4>
+                    <p>{{recipe['season']}} - {{recipe['description'][:100]}}...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if results.get('proverbs') %}
+        <section class="card results-section">
+            <h3>💭 Proverbi ({{results['proverbs']|length}})</h3>
+            <div class="results-list">
+                {% for proverb in results['proverbs'] %}
+                <div class="result-item">
+                    <p><i>"{{proverb['text']}}"</i></p>
+                    {% if proverb['author'] %}<p class="author">— {{proverb['author']}}</p>{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if results.get('tips') %}
+        <section class="card results-section">
+            <h3>🌱 Consigli Agricoli ({{results['tips']|length}})</h3>
+            <div class="results-list">
+                {% for tip in results['tips'] %}
+                <div class="result-item">
+                    <h4>{{tip['title']}}</h4>
+                    <p>{{tip['description'][:100]}}...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if results.get('total', 0) == 0 %}
+        <div class="card no-results">
+            <h3>Nessun risultato trovato</h3>
+            <p>Prova con parole chiave diverse o più generiche.</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

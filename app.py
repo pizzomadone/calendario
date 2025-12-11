@@ -508,13 +508,28 @@ def error500(error):
     return template('error', message="Errore del server")
 
 
+# Setup extended routes (search, PDF export, proverbs, recipes, agricultural tips)
+from app_extensions import setup_extended_routes
+setup_extended_routes(app)
+
+
 if __name__ == '__main__':
     # Initialize database if it doesn't exist
     if not os.path.exists(DB_PATH):
         print("📊 Initializing database...")
         from database import init_db
         init_db()
+        print("📊 Extending database with new features...")
+        from database_extended import extend_database
+        extend_database()
 
     print("🚀 Starting Calendario Italiano...")
     print("📅 Open your browser at http://localhost:8080")
+    print("\n🎯 Nuove funzionalità disponibili:")
+    print("   🔍 Ricerca: /cerca")
+    print("   📄 Export PDF: /pdf/mese/YYYY/MM o /pdf/anno/YYYY")
+    print("   💭 Proverbi: /proverbi")
+    print("   🍝 Ricette: /ricette")
+    print("   🌱 Orto: /orto")
+    print("   🎉 Feste regionali: /feste/regionali")
     run(app, host='localhost', port=8080, debug=True, reloader=True)
