@@ -35,8 +35,7 @@ Un'applicazione web completa per il calendario italiano con santi, fasi lunari, 
 pip install -r requirements.txt
 
 # 2. Inizializza database (automatico al primo avvio)
-python database.py
-python database_extended.py
+python init_database.py
 
 # 3. Avvia applicazione
 python app.py

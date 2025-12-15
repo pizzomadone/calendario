@@ -27,14 +27,33 @@ Questo installerà:
 Il database viene creato automaticamente al primo avvio, ma puoi inizializzarlo manualmente con:
 
 ```bash
-python database.py
-python database_extended.py
+python init_database.py
 ```
 
 Vedrai i messaggi:
 ```
+📊 Initializing complete database...
+
+Step 1/2: Creating base tables (saints, holidays, name_days, events)
 ✅ Database initialized successfully at /home/user/calendario/data/calendario.db
+
+Step 2/2: Adding extended features (proverbs, recipes, agricultural tips)
 ✅ Database extended successfully with new features!
+
+============================================================
+✅ Database initialization complete!
+============================================================
+
+Database includes:
+  • 27+ Santi with biographies
+  • 25+ Festività (nazionali e regionali)
+  • 100+ Onomastici
+  • 30+ Proverbi tradizionali
+  • 9 Ricette stagionali
+  • 24+ Consigli agricoli
+  • 10+ Eventi storici
+
+Total: 200+ entries ready to use!
 ```
 
 ### 3️⃣ Avvia l'Applicazione
@@ -243,8 +262,7 @@ Per deploy in produzione:
 
 ```bash
 rm data/calendario.db
-python database.py
-python database_extended.py
+python init_database.py
 ```
 
 ### Vedere i Log
