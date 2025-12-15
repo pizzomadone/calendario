@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
 
-    {{!meta_tags}}
-    {{!breadcrumb if breadcrumb else ''}}
-    {{!person_schema if person_schema else ''}}
+    {{meta_tags|safe}}
+    {{breadcrumb|safe if breadcrumb else ''}}
+    {{person_schema|safe if person_schema else ''}}
 
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
