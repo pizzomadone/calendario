@@ -5,7 +5,7 @@ Italian Calendar Web Application
 Main Bottle application with routing and controllers
 """
 
-from bottle import Bottle, route, run, static_file, request, response, redirect, jinja2_template as template
+from bottle import Bottle, route, run, static_file, request, response, redirect
 from datetime import datetime, timedelta
 import sqlite3
 import calendar
@@ -32,6 +32,15 @@ jinja_env = Environment(loader=FileSystemLoader(template_path))
 jinja_env.globals.update({
     'datetime': datetime,
 })
+
+# Assign jinja_env to app so it can be accessed by extensions
+app.jinja_env = jinja_env
+
+# Custom template rendering function
+def template(name, **kwargs):
+    """Render template using Jinja2"""
+    tmpl = jinja_env.get_template(f'{name}.html')
+    return tmpl.render(**kwargs)
 
 
 # Static files
