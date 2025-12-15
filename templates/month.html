@@ -4,9 +4,9 @@
 <div class="container">
     <div class="month-header">
         <div class="navigation">
-            <a href="/mese/{{prev_month[0]}}/{{prev_month[1]:02}}" class="nav-button">← Mese Precedente</a>
+            <a href="/mese/{{prev_month[0]}}/{{"%02d" % prev_month[1]}}" class="nav-button">← Mese Precedente</a>
             <h1 class="month-title">{{italian_month.capitalize()}} {{year}}</h1>
-            <a href="/mese/{{next_month[0]}}/{{next_month[1]:02}}" class="nav-button">Mese Successivo →</a>
+            <a href="/mese/{{next_month[0]}}/{{"%02d" % next_month[1]}}" class="nav-button">Mese Successivo →</a>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
                 <div class="calendar-day empty"></div>
                 {% else %}
                 <div class="calendar-day">
-                    <a href="/giorno/{{year}}/{{month:02}}/{{day:02}}" class="day-link">
+                    <a href="/giorno/{{year}}/{{"%02d" % month}}/{{"%02d" % day}}" class="day-link">
                         <div class="day-number">{{day}}</div>
 
                         {% if day in holidays_in_month %}

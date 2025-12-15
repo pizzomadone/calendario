@@ -28,7 +28,7 @@
         {% endif %}
 
         <section class="saint-actions">
-            <a href="/giorno/{{datetime.now().year}}/{{saint['month']:02}}/{{saint['day']:02}}" class="button-primary">
+            <a href="/giorno/{{datetime.now().year}}/{{"%02d" % saint['month']}}/{{"%02d" % saint['day']}}" class="button-primary">
                 📅 Vai al {{saint['day']}} {{italian_month}}
             </a>
             <a href="/santi" class="button-secondary">

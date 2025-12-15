@@ -23,7 +23,7 @@
                 {% endif %}
             </div>
             <p class="holiday-description">{{holiday['description']}}</p>
-            <a href="/giorno/{{datetime.now().year}}/{{holiday['month']:02}}/{{holiday['day']:02}}" class="holiday-link">
+            <a href="/giorno/{{datetime.now().year}}/{{"%02d" % holiday['month']}}/{{"%02d" % holiday['day']}}" class="holiday-link">
                 Vai al {{holiday['day']}} {{italian_months[holiday['month']]}} →
             </a>
         </div>

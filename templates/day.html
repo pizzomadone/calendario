@@ -4,9 +4,9 @@
 <div class="container">
     <div class="day-header">
         <div class="navigation">
-            <a href="/giorno/{{prev_day.year}}/{{prev_day.month:02}}/{{prev_day.day:02}}" class="nav-button">← Giorno Precedente</a>
+            <a href="/giorno/{{prev_day.year}}/{{"%02d" % prev_day.month}}/{{"%02d" % prev_day.day}}" class="nav-button">← Giorno Precedente</a>
             <h1 class="day-title">{{formatted_date}}</h1>
-            <a href="/giorno/{{next_day.year}}/{{next_day.month:02}}/{{next_day.day:02}}" class="nav-button">Giorno Successivo →</a>
+            <a href="/giorno/{{next_day.year}}/{{"%02d" % next_day.month}}/{{"%02d" % next_day.day}}" class="nav-button">Giorno Successivo →</a>
         </div>
 
         <div class="quick-info">
@@ -128,7 +128,7 @@
 
     <!-- Month Calendar Link -->
     <div class="month-link">
-        <a href="/mese/{{year}}/{{month:02}}/{{italian_month}}" class="button-primary">
+        <a href="/mese/{{year}}/{{"%02d" % month}}/{{italian_month}}" class="button-primary">
             📅 Vedi tutto il mese di {{italian_month}}
         </a>
     </div>

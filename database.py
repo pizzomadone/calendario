@@ -209,11 +209,11 @@ def populate_saints(cursor):
          "26 dicembre", "Diaconi, muratori, tagliapietre")
     ]
 
-    for day, month, name, slug, biography, short_story, feast_day, patronage in saints_data:
+    for month, day, name, slug, biography, short_story, feast_day, patronage in saints_data:
         cursor.execute('''
-            INSERT OR IGNORE INTO saints (day, month, name, slug, biography, short_story, feast_day, patronage)
+            INSERT OR IGNORE INTO saints (month, day, name, slug, biography, short_story, feast_day, patronage)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (day, month, name, slug, biography, short_story, feast_day, patronage))
+        ''', (month, day, name, slug, biography, short_story, feast_day, patronage))
 
 
 def populate_holidays(cursor):

@@ -39,7 +39,7 @@
         <h2>📅 Tutti i Mesi</h2>
         <div class="months-grid">
             {% for month in months %}
-            <a href="/mese/{{year}}/{{month:02}}/{{italian_months[month]}}" class="month-box">
+            <a href="/mese/{{year}}/{{"%02d" % month}}/{{italian_months[month]}}" class="month-box">
                 <div class="month-name">{{italian_months[month].capitalize()}}</div>
                 <div class="month-number">{{month}}</div>
             </a>
